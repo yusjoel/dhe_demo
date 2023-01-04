@@ -12,6 +12,12 @@
 - RunChangedMethod为变化的函数，应该以解释方式执行。为了模拟代码修改后的样子，使用 DHE_HOT_UPDATE 宏来区分原始和修改后的代码。
 - 正常的项目，直接`HybridCLr/CompileAll/ActiveBuildTarget`即可编译热更新dll，而示例项目出于对比目的，使用 DHE_HOT_UPDATE 宏来区分原始和热更新的代码，因此编译热更新dll需要加上DHE_HOT_UPDATE宏定义。使用`HybridCLR/CompileDHEDlls`编译出热更新dll。
 
+## 安装
+
+请在installer中安装 DHE对应分支：
+- hybridclr  `DHE`
+- il2cpp_plus `{version}-DHE` 如`2020-DHE`
+
 ## 打包
 
 - `HybridCLR/Build/Win64` 生成并且运行示例项目，可以看到 RunNotChangedMethod和RunChangedMethod虽然原始代码相同，但经过变更后，RunChangedMethod以解释方式执行，执行时间有近8倍的差距。
