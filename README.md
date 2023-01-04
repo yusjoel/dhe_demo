@@ -18,7 +18,7 @@
 
 ## 其他说明
 
-DHE暂时只提供商业版本，不开源源码，但项目Release中附带了一个通用的ios版本的libil2cpp.a，可以用于一般性质的测试体验，替换导出的xcode工程的libil2cpp.a即可。
+DHE的公开版本不是MIT协议，不可用于商业项目，且不是最终版本。目前公开的版本足以用于测试体验DHE。希望商业项目中使用DHE的请联系我们。
 
 更详细请参见 [Differential Hybird Execution](https://focus-creative-games.github.io/hybridclr/differential_hybrid_execution/) 。
 
