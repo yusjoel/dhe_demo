@@ -1,0 +1,51 @@
+接入DHE后一运行游戏就崩溃，错误日志如下。
+已经把错误的脚本简化为SceneTag和SceneTagHandler，在demo中打包也会崩溃。
+注掉DefaultExecutionOrder后就正常，但是单独一个脚本带上DefaultExecutionOrder仍旧正常，可能是多个因素组合造成的。
+
+测试下来和SceneTagHandler全部被注释掉没有关系。
+只要SceneTagHandler上有两个Attribute就会崩溃。
+
+2023/01/29 17:49:36.324 2850 2869 Error CRASH *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+2023/01/29 17:49:36.324 2850 2869 Error CRASH Version '2019.4.40f1 (ffc62b691db5)', Build type 'Development', Scripting Backend 'il2cpp', CPU 'armeabi-v7a'
+2023/01/29 17:49:36.324 2850 2869 Error CRASH Build fingerprint: 'samsung/star2qltezh/star2qltechn:9/PQ3B.190801.002/G9650ZHU2ARC6:user/release-keys'
+2023/01/29 17:49:36.324 2850 2869 Error CRASH Revision: '0'
+2023/01/29 17:49:36.324 2850 2869 Error CRASH ABI: 'arm'
+2023/01/29 17:49:36.349 2850 2869 Error CRASH Timestamp: 2023-01-29 17:49:36+0800
+2023/01/29 17:49:36.349 2850 2869 Error CRASH pid: 2850, tid: 2869, name: UnityMain  >>> com.mygame.debug <<<
+2023/01/29 17:49:36.349 2850 2869 Error CRASH uid: 10055
+2023/01/29 17:49:36.349 2850 2869 Error CRASH signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x788
+2023/01/29 17:49:36.349 2850 2869 Error CRASH Cause: null pointer dereference
+2023/01/29 17:49:36.349 2850 2869 Error CRASH     r0  00000784  r1  d3b7de14  r2  00000000  r3  0000006b
+2023/01/29 17:49:36.349 2850 2869 Error CRASH     r4  caac342c  r5  00000000  r6  c4b9134c  r7  c5f69474
+2023/01/29 17:49:36.349 2850 2869 Error CRASH     r8  00000cf9  r9  d3b7de7c  r10 00000000  r11 d3b7de08
+2023/01/29 17:49:36.349 2850 2869 Error CRASH     ip  0000006c  sp  d3b7dde8  lr  c6086900  pc  c60aab0c
+2023/01/29 17:49:36.349 2850 2869 Error CRASH 
+2023/01/29 17:49:36.349 2850 2869 Error CRASH backtrace:
+
+2023/01/29 17:49:36.349 2850 2869 Error CRASH       #00 pc 01030b0c (std::__ndk1::__bucket_list_deallocator<std::__ndk1::allocator<std::__ndk1::__hash_node_base<std::__ndk1::__hash_node<std::__ndk1::__hash_value_type<Il2CppTypeDefinition const*, Il2CppTypeDefinition const*>, void*>*>*> >::size() const at D:\Android\unity-2019.4\android-ndk-r19\toolchains\llvm\prebuilt\windows-x86_64\bin/../sysroot/usr/include/c++/v1/__hash_table:809)  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libil2cpp.so (BuildId: d400138be9c1f8d76cc0eb164e7f741d4f352461)
+2023/01/29 17:49:36.350 2850 2869 Error CRASH       #01 pc 0100c8fc (std::__ndk1::unordered_map<Il2CppTypeDefinition const*, Il2CppTypeDefinition const*, std::__ndk1::hash<Il2CppTypeDefinition const*>, std::__ndk1::equal_to<Il2CppTypeDefinition const*>, std::__ndk1::allocator<std::__ndk1::pair<Il2CppTypeDefinition const* const, Il2CppTypeDefinition const*> > >::find(Il2CppTypeDefinition const* const&) at D:\Android\unity-2019.4\android-ndk-r19\toolchains\llvm\prebuilt\windows-x86_64\bin/../sysroot/usr/include/c++/v1/unordered_map:1265)  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libil2cpp.so (BuildId: d400138be9c1f8d76cc0eb164e7f741d4f352461)
+2023/01/29 17:49:36.353 2850 2869 Error CRASH       #02 pc 00eef6c8 (GetRuntimeMetadataIl2CppType(int) at E:\myproj\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\libil2cpp\vm/MetadataCache.cpp:2004)  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libil2cpp.so (BuildId: d400138be9c1f8d76cc0eb164e7f741d4f352461)
+2023/01/29 17:49:36.353 2850 2869 Error CRASH       #03 pc 00eef4d4 (il2cpp::vm::MetadataCache::IntializeMethodMetadataRange(unsigned int, unsigned int, il2cpp::utils::dynamic_array<Il2CppMetadataUsage, 4u> const&, bool) at E:\myproj\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\libil2cpp\vm/MetadataCache.cpp:2115)  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libil2cpp.so (BuildId: d400138be9c1f8d76cc0eb164e7f741d4f352461)
+2023/01/29 17:49:36.354 2850 2869 Error CRASH       #04 pc 00eef764 (il2cpp::vm::MetadataCache::InitializeMethodMetadata(unsigned int) at E:\myproj\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\libil2cpp\vm/MetadataCache.cpp:2154)  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libil2cpp.so (BuildId: d400138be9c1f8d76cc0eb164e7f741d4f352461)
+2023/01/29 17:49:36.354 2850 2869 Error CRASH       #05 pc 00a20a74 (LocalNavMeshBuilder_t5EAA703A2C62CE2E4BBA1FF394A037CA8BDBCB95_CustomAttributesCacheGenerator(CustomAttributesCache*) at E:\myproj\Temp\StagingArea\Il2Cpp\il2cppOutput/Il2CppAttributes.cpp:303275)  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libil2cpp.so (BuildId: d400138be9c1f8d76cc0eb164e7f741d4f352461)
+2023/01/29 17:49:36.354 2850 2869 Error CRASH       #06 pc 00eeef64 (il2cpp::vm::MetadataCache::GenerateCustomAttributesCache(int) at E:\myproj\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\libil2cpp\vm/MetadataCache.cpp:1857)  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libil2cpp.so (BuildId: d400138be9c1f8d76cc0eb164e7f741d4f352461)
+2023/01/29 17:49:36.354 2850 2869 Error CRASH       #07 pc 00ef67bc (il2cpp::vm::Reflection::ConstructCustomAttributes(int) at E:\myproj\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\libil2cpp\vm/Reflection.cpp:674)  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libil2cpp.so (BuildId: d400138be9c1f8d76cc0eb164e7f741d4f352461)
+
+2023/01/29 17:49:36.354 2850 2869 Error CRASH       #08 pc 00872c0d  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (scripting_custom_attrs_construct(Il2CppCustomAttrInfo*, ScriptingExceptionPtr*)+12) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.354 2850 2869 Error CRASH       #09 pc 008760ef  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (AttributeCollectionInfo::AllocAttributesArrayIfNeeded()+26) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.354 2850 2869 Error CRASH       #10 pc 0087619d  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (AttributeCollectionInfo::GetAttributeObjectsArrayCount()+4) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.355 2850 2869 Error CRASH       #11 pc 00879a83  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (ManagedAttributeManager::GetDefaultExecutionOrder(ScriptingClassPtr)+210) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.355 2850 2869 Error CRASH       #12 pc 00883037  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (CreateMonoScriptCache(core::basic_string<char, core::StringStorageDefault<char> > const&, ScriptingClassPtr, InitScriptingCacheType, Object*, int)+2526) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.355 2850 2869 Error CRASH       #13 pc 0088182b  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (FindOrCreateMonoScriptCache(ScriptingClassPtr, InitScriptingCacheType, Object*, int)+114) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.355 2850 2869 Error CRASH       #14 pc 0088177b  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (MonoScript::Renew(ScriptingClassPtr)+22) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.355 2850 2869 Error CRASH       #15 pc 008818d5  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (MonoScript::RebuildFromAwake()+84) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.355 2850 2869 Error CRASH       #16 pc 008a76b7  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (PersistentManager::PostReadActivationQueue(int, TypeTree const*, bool, PersistentManager::LockFlags)+74) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.356 2850 2869 Error CRASH       #17 pc 008a7d5f  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (PersistentManager::ReadAndActivateObjectThreaded(int, SerializedObjectIdentifier const&, SerializedFile*, bool, bool, PersistentManager::LockFlags)+226) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.357 2850 2869 Error CRASH       #18 pc 008a8257  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (PersistentManager::LoadFileCompletelyThreaded(core::basic_string<char, core::StringStorageDefault<char> > const&, long long*, int*, int, PersistentManager::LoadFlags, LoadProgress&, PersistentManager::LockFlags)+510) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.357 2850 2869 Error CRASH       #19 pc 008a8417  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (PersistentManager::LoadFileCompletely(core::basic_string<char, core::StringStorageDefault<char> > const&)+94) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.358 2850 2869 Error CRASH       #20 pc 004133c3  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (PlayerLoadGlobalManagers(char const*, char const*, unsigned int)+410) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.358 2850 2869 Error CRASH       #21 pc 006d3d5b  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (PlayerInitEngineGraphics(bool)+110) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.359 2850 2869 Error CRASH       #22 pc 008db089  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (UnityInitApplication()+2984) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.359 2850 2869 Error CRASH       #23 pc 008dbbed  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (UnityPlayerLoop()+100) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.359 2850 2869 Error CRASH       #24 pc 00901f6d  /data/app/com.mygame.debug-ap-AlJT5jO055bQQFTLebQ==/lib/arm/libunity.so (nativeRender(_JNIEnv*, _jobject*)+40) (BuildId: 1f9c471869e2d725170b0f6dff8586d3402c9837)
+2023/01/29 17:49:36.359 2850 2869 Error CRASH       #25 pc 0007e65e  /system/lib/arm/nb/libtcb.so
